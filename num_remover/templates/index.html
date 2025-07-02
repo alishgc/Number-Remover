@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Num Remover</title>
+    <style>
+        /* General page styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f8;
+            color: #333;
+            padding: 40px;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        /* Heading style */
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        /* Form styling */
+        form {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-top: 30px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        #charCount {
+            position: absolute;
+            right: 14px;
+            bottom: 8px;
+            font-size: 13px;
+            color: #888;
+            pointer-events: none;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #3498db;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        /* Result display */
+        h2 {
+            color: #2c3e50;
+            margin-top: 30px;
+        }
+
+        p {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            white-space: pre-wrap;
+        }
+
+        /* Copy button styling */
+        #copyBtn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            margin-left: 10px;
+            padding: 5px 10px;
+            font-size: 14px;
+            background-color: #2ecc71;
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        /* Footer styling */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #888;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to Number Remover</h1>
+    <form action="/rmv" method="get" style="position:relative;">
+        <div style="position:relative;">
+            <textarea id="inputText" name="textarea"
+                style="width: 100%; height: 102px; padding-bottom:28px;">{{ original_text }}</textarea>
+            <span id="charCount">
+                0 char
+            </span>
+        </div>
+        <br>
+        <center><button type="submit">Remove numbers</button></center>
+    </form>
+
+    <!-- <h2>Original Text:</h2>
+    <p>{{ original_text }}</p> -->
+
+    <h2 style="position:relative;">
+        Text without numbers:
+        <button id="copyBtn" onclick="copyText()" title="Copy to clipboard">Copy</button>
+    </h2>
+    <p id="resultText">{{ analyzed_text }}</p>
+
+</body>
+
+<footer>
+    <hr>
+    &copy; 2025 Number Remover &mdash; Made with ❤️ by Alish G.C
+    <div style="margin-top:8px;">
+        <a href="https://github.com/alishgc" target="_blank"
+            style="color:#3498db; text-decoration:none; margin-right:8px;">
+            GitHub
+        </a>
+        <span style="color:#bbb; margin: 0 8px;">|</span>
+        <a href="mailto:info@alishgc.com.np" style="color:#3498db; text-decoration:none;">
+            Contact
+        </a>
+        <span style="color:#bbb; margin: 0 8px;">|</span>
+        <a href="/about" style="color:#3498db; text-decoration:none;">
+            About this project
+        </a>
+    </div>
+</footer>
+<script>
+    // Character counter for textarea
+    const textarea = document.getElementById('inputText');
+    const charCount = document.getElementById('charCount');
+    function updateCharCount() {
+        charCount.textContent = textarea.value.length;
+    }
+    textarea.addEventListener('input', updateCharCount);
+    // Initialize on page load
+    updateCharCount();
+
+    function copyText() {
+        const text = document.getElementById('resultText').innerText;
+        const btn = document.getElementById('copyBtn');
+        navigator.clipboard.writeText(text).then(function () {
+            btn.innerText = "Copied!";
+            setTimeout(() => {
+                btn.innerText = "Copy";
+            }, 1200);
+        });
+    }
+</script>
+
+</html>
